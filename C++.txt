@@ -1,0 +1,174 @@
+#include <iostream>
+using namespace std;
+
+
+class MyClass {     // The class
+
+  private: // Encapsulation Example 
+  int x1;
+  int y1;
+  int mul(int x, int y);  
+  
+  
+  
+  public:           // Access specifier
+   
+  void print();
+  
+   int sum(int x, int y);
+  
+    MyClass(int x=0, int y=0) {     // Constructor
+    
+      x1 = x;
+      y1 = y;
+      printf("Parent constructor called with value:   %d-----%d\n",x1,y1);
+    }
+    
+    void p()
+	{
+	    mul(4,4);
+	   	cout<<"Print from Parent Class "<<endl;
+  }
+  
+  
+  
+  ~MyClass() {
+        cout << "Destructor called! From Parent Class" << endl;
+    }
+    
+    
+  protected:
+       void protect_section()
+       {
+         cout << "Protected Access specifier" << endl;
+       }
+};
+
+
+
+class Derived : public MyClass
+{
+    public:
+    
+    Derived (int x =0, int y =0) : MyClass(x,y) {
+        //x1 =4;
+        protect_section();
+        cout << "Child constructor called Value : " << x <<"-----"<< y  << endl;
+    }
+    
+    //
+    
+    
+    
+    //
+    
+    void show()
+	{
+	   	cout<<"Inharritance"<<endl;
+    }
+    
+    
+    ~Derived() {
+        cout << "Destructor called! From Clild Class" << endl;
+    }
+    
+};
+
+
+int MyClass::sum(int x, int y)
+{
+    return x+y;
+}
+
+
+void MyClass::print()
+{
+    printf("Print\n");
+}
+
+
+int MyClass::mul(int x, int y)
+{
+    printf("Private mul Result = %d\n",(x*y));
+    return x*y;
+}
+
+
+
+// Polymorphism 
+
+// ->> Compile-time Polymorphism (Static Polymorphism)
+
+class Print {
+public:
+    void show(int x) {
+        cout << "Integer: " << x << endl;
+    }
+    void show(string s) {
+        cout << "String: " << s << endl;
+    }
+};
+
+
+// Run-time Polymorphism (Dynamic Polymorphism)
+
+class Animal {
+public:
+    virtual void sound() {
+        cout << "Some animal sound" << endl;
+    }
+};
+
+class Dog : public Animal {
+public:
+    void sound() override {
+        cout << "Dog barks" << endl;
+    }
+};
+
+
+
+class Cat : public Animal {
+public:
+    void sound() override {
+        cout << "Cat barks" << endl;
+    }
+}; 
+
+
+
+
+// Polymorphism
+
+
+int main() {
+  //MyClass myObj(10,20);
+  //Derived d;
+  Derived d(5,5);
+  d.p();
+  d.show();
+  d.print();
+  printf("Sum = %d \n",d.sum(5,5));
+  
+  //d.mul(4,4);
+  //d.protect_section();
+  //myObj.x1 =0;
+  
+  
+  
+  // Polymorphism
+  
+  
+  Animal* a;
+    Dog dd;
+    Cat cc;
+    a = &dd;
+    a->sound();  // Output: Dog barks (runtime polymorphism)
+    
+    a = &cc;
+    a->sound();  // Output: Cat barks (runtime polymorphism)
+  
+  
+  
+  return 0;
+}
